@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TextGrabber</string>
+    <string name="btn_start_floating">Включить плавающую кнопку</string>
+    <string name="btn_stop_floating">Выключить (Off)</string>
+    <string name="btn_clear">Очистить всё</string>
+    <string name="btn_copy">Копировать</string>
+    <string name="btn_open_text">Открыть текст</string>
+    <string name="btn_copy_all">Копировать всё</string>
+    <string name="chk_notification">Показывать результат в уведомлении</string>
+    <string name="toast_copied">Текст скопирован!</string>
+    <string name="toast_stopped">Плавающая кнопка выключена</string>
+    <string name="lang_auto">Язык системы (Авто)</string>
+    <string name="lang_uz">O\'zbekcha</string>
+    <string name="lang_ru">Русский</string>
+    <string name="lang_en">English</string>
+    <string name="menu_lang">Язык</string>
+    <string name="menu_color">Цвет текста</string>
+    <string name="float_btn_enabled">Плавающая кнопка включена!</string>
+    <string name="language">Язык</string>
+    <string name="text_color">Цвет текста</string>
+    <string name="color_default">Стандартный</string>
+    <string name="color_green">Зелёный</string>
+    <string name="color_blue">Синий</string>
+    <string name="color_red">Красный</string>
+    <string name="select_on">Выделение: ВКЛ (проведите пальцем)</string>
+    <string name="select_off">Выделение: ВЫКЛ</string>
+    <string name="toast_no_text">Текст не найден. Сначала сделайте снимок.</string>
+    <string name="toast_cleared">Очищено</string>
+    <string name="toast_ocr_working">Распознавание текста\u2026</string>
+    <string name="toast_ocr_done">Текст распознан. Нажмите \"Открыть текст\".</string>
+    <string name="toast_ocr_words">OCR: найдено %1$d слов</string>
+    <string name="toast_error">Ошибка: %1$s</string>
+    <string name="toast_selected_copied">Скопировано: %1$s</string>
+    <string name="notif_channel_name">Захват текста с экрана</string>
+    <string name="notif_channel_desc">Требуется при активной плавающей кнопке</string>
+    <string name="notif_stop_action">Выключить</string>
+    <string name="accessibility_desc">TextGrabber считывает экран для озвучивания текста из других приложений.</string>
+    <string name="tts_uz_missing">Для узбекского языка установите RHVoice</string>
+    <string name="tts_reading_started">Озвучивание начато</string>
+    <string name="tts_no_text">Текст на экране не найден</string>
+    <string name="tts_stopped">Озвучивание остановлено</string>
+    <string name="accessibility_not_enabled">Сначала включите Службу доступности: Настройки - Специальные возможности - TextGrabber</string>
+
+    <string name="rate_label">Скорость: %1$d%%</string>
+    <string name="btn_read_from_selection">🔊 Озвучить с выделенного</string>
+    <string name="btn_test_tts">🔊 Тест: Привет мир</string>
+    <string name="voice_dialog_title">Выбор голоса</string>
+    <string name="voice_sevinch">Sevinch (женский, компактный)</string>
+    <string name="voice_dilnavoz">Dilnavoz (женский, полный)</string>
+    <string name="voice_selected">Голос: %1$s (перезапустите приложение)</string>
+
+    <string name="btn_enable_accessibility">Включить службу доступности (озвучка)</string>
+    <string name="tts_hint_button">Перетащите кнопку в нужное место, затем удерживайте для чтения оттуда</string>
+
+    <string name="menu_help">Помощь</string>
+    <string name="help_title">Как пользоваться TextGrabber</string>
+        
+    
+    
+    <string name="help_text">ЗАХВАТ ТЕКСТА: 1) Включить плавающую кнопку и разрешите захват. 2) Откройте любое приложение, нажмите кнопку. 3) OCR автоматически, нажмите Открыть текст. | ОЗВУЧИВАНИЕ: 1) Включить службу доступности. 2) Удерживайте кнопку - весь экран. | С ОПРЕДЕЛЁННОГО МЕСТА: - Выделенный текст: выделите долгим нажатием, затем кнопку. - От позиции кнопки: перетащите кнопку в начало текста, удерживайте. | СКОРОСТЬ: ползунок 30-130 процентов. | ГОЛОС: только Sevinch. Для других - RHVoice. | ЭКРАН ВЫКЛ: чтение продолжается.</string>
+    <string name="voice_islom">Islom (мужской, самый естественный)</string>
+    <string name="edge_tts_enabled">Онлайн голос (Edge TTS)</string>
+    <string name="edge_voice_madina">Мадина (жен.)</string>
+    <string name="edge_voice_sardor">Сардор (муж.)</string>
+    <string name="tts_lang_label">Язык чтения</string>
+    <string name="tts_lang_auto">Авто (из текста)</string>
+    <string name="tts_lang_uz">Узбекский</string>
+    <string name="tts_lang_ru">Русский</string>
+    <string name="tts_lang_en">Английский</string>
+    <string name="toast_btn_pos">С позиции кнопки (%1$dpx)</string>
+    <string name="toast_screen_capture">Захват экрана...</string>
+    <string name="toast_text_not_found">Текст не найден</string>
+    <string name="toast_preparing">Подготовка...</string>
+    <string name="toast_no_internet">Нужен интернет</string>
+    <string name="overlay_close">Закрыть</string>
+    <string name="overlay_copy">Копировать</string>
+    <string name="overlay_read">Читать</string>
+    <string name="overlay_zoom_mode">🔍 Режим масштаба</string>
+    <string name="overlay_select_mode">✏️ Выделение</string>
+    <string name="toast_select_on">Выделение текста включено</string>
+    <string name="toast_zoom_on">Режим масштаба</string>
+    <string name="toast_ocr_wait">Текст подготавливается...</string>
+    <string name="toast_select_first">Сначала выделите текст</string>
+    <string name="toast_read_start">Чтение началось</string>
+    <string name="toast_internet_required">Нужен интернет</string>
+    <string name="toast_tts_stopped">Остановлено</string>
+    <string name="toast_floating_started">Плавающая кнопка включена</string>
+    <string name="toast_permission_denied">Разрешение не получено</string>
+    <string name="toast_overlay_permission">Разрешите отображение поверх приложений</string>
+    <string name="toast_online_disabled">Онлайн голос отключён</string>
+    <string name="toast_stopped_short">Остановлено</string>
+    <string name="update_title">Доступна новая версия!</string>
+    <string name="update_message">Вышла версия %1$s. Обновить сейчас?</string>
+    <string name="update_now">Обновить</string>
+    <string name="update_later">Позже</string>
+    <string name="update_downloading">Загрузка обновления...</string>
+    <string name="update_allow_install">Разрешите установку из этого источника</string>
+    <string name="ui_lang_label">Язык интерфейса</string>
+    <string name="ui_lang_uz">O\'zbekcha</string>
+    <string name="ui_lang_ru">Русский</string>
+    <string name="ui_lang_en">English</string>
+    <string name="btn_test_tts_uz">🔊 Тест: Ассалому алайкум</string>
+    <string name="btn_test_tts_ru">🔊 Тест: Привет мир</string>
+    <string name="btn_test_tts_en">🔊 Test: Hello world</string>
+</resources>

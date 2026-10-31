@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:elevation="4dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- ENG YUQORIGA: UI TILI -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ui_lang_label"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinnerUiLang"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="#1976D2" />
+
+            <!-- BILDIRISHNOMA -->
+            <CheckBox
+                android:id="@+id/chkNotification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/chk_notification" />
+
+            <!-- TUGMALAR -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <Button
+                    android:id="@+id/btnFloating"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="#2E7D32"
+                    android:text="@string/btn_start_floating" />
+
+                <Button
+                    android:id="@+id/btnStopService"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="#C62828"
+                    android:text="@string/btn_stop_floating" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnEnableAccessibility"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="#7B1FA2"
+                android:text="@string/btn_enable_accessibility" />
+
+            <!-- O'QISH TILI (TTS) -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/tts_lang_label"
+                android:textSize="14sp" />
+
+            <Spinner
+                android:id="@+id/spinnerTtsLang"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="4dp"
+                android:backgroundTint="#1976D2" />
+
+            <!-- EDGE TTS -->
+            <CheckBox
+                android:id="@+id/chkEdgeTts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:checked="true"
+                android:text="@string/edge_tts_enabled" />
+
+            <!-- OVOZ TANLASH -->
+            <RadioGroup
+                android:id="@+id/edgeVoiceGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+
+                <RadioButton
+                    android:id="@+id/radioMadina"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:checked="true"
+                    android:text="@string/edge_voice_madina" />
+
+                <RadioButton
+                    android:id="@+id/radioSardor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/edge_voice_sardor" />
+            </RadioGroup>
+
+            <!-- TEZLIK (100% default) -->
+            <TextView
+                android:id="@+id/rateLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textSize="14sp" />
+
+            <SeekBar
+                android:id="@+id/rateSeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="130"
+                android:progress="100" />
+
+            <!-- TEST TUGMASI -->
+            <Button
+                android:id="@+id/btnTestTts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#00897B"
+                android:text="@string/btn_test_tts" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

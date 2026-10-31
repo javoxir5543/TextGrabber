@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TextGrabber</string>
+    <string name="btn_start_floating">Enable floating button</string>
+    <string name="btn_stop_floating">Disable (Off)</string>
+    <string name="btn_clear">Clear all</string>
+    <string name="btn_copy">Copy</string>
+    <string name="btn_open_text">Open text</string>
+    <string name="btn_copy_all">Copy all</string>
+    <string name="chk_notification">Show result in notification</string>
+    <string name="toast_copied">Text copied!</string>
+    <string name="toast_stopped">Floating button disabled</string>
+    <string name="lang_auto">System language (Auto)</string>
+    <string name="lang_uz">O\'zbekcha</string>
+    <string name="lang_ru">Русский</string>
+    <string name="lang_en">English</string>
+    <string name="menu_lang">Language</string>
+    <string name="menu_color">Text color</string>
+    <string name="float_btn_enabled">Floating button enabled!</string>
+    <string name="language">Language</string>
+    <string name="text_color">Text color</string>
+    <string name="color_default">Default</string>
+    <string name="color_green">Green</string>
+    <string name="color_blue">Blue</string>
+    <string name="color_red">Red</string>
+    <string name="select_on">Select: ON (drag your finger)</string>
+    <string name="select_off">Select: OFF</string>
+    <string name="toast_no_text">No text found. Capture an image first.</string>
+    <string name="toast_cleared">Cleared</string>
+    <string name="toast_ocr_working">Reading text\u2026</string>
+    <string name="toast_ocr_done">Text recognized. Tap \"Open text\".</string>
+    <string name="toast_ocr_words">OCR: %1$d words found</string>
+    <string name="toast_error">Error: %1$s</string>
+    <string name="toast_selected_copied">Copied: %1$s</string>
+    <string name="notif_channel_name">Screen text capture</string>
+    <string name="notif_channel_desc">Required while the floating capture button is active</string>
+    <string name="notif_stop_action">Turn off</string>
+
+    <string name="accessibility_desc">TextGrabber reads the screen to speak text from other apps aloud.</string>
+    <string name="tts_uz_missing">Install RHVoice for the Uzbek language</string>
+
+    <string name="tts_reading_started">Reading started</string>
+    <string name="tts_no_text">No text found on the screen</string>
+    <string name="tts_stopped">Reading stopped</string>
+    <string name="accessibility_not_enabled">First enable Accessibility Service: Settings - Accessibility - TextGrabber</string>
+
+    <string name="rate_label">Speed: %1$d%%</string>
+    <string name="btn_read_from_selection">🔊 Read from selection</string>
+    <string name="btn_test_tts">🔊 Test: Hello world</string>
+    <string name="voice_dialog_title">Select voice</string>
+    <string name="voice_sevinch">Sevinch (female, compact)</string>
+    <string name="voice_dilnavoz">Dilnavoz (female, full)</string>
+    <string name="voice_selected">Voice: %1$s (restart app)</string>
+
+    <string name="btn_enable_accessibility">Enable Accessibility Service (speech)</string>
+    <string name="tts_hint_button">Drag button to desired position, then long-press to read from there</string>
+
+    <string name="menu_help">Help</string>
+    <string name="help_title">How to use TextGrabber</string>
+        
+    
+    
+    <string name="help_text">CAPTURE TEXT: 1) Tap Enable floating button and grant permission. 2) Open any app, tap the button. 3) OCR runs automatically, tap Open text. | VOICE READING: 1) Tap Enable Accessibility Service. 2) Long-press floating button to read whole screen. | FROM SPECIFIC POINT: - Selected text: long-press text, then floating button. - From button position: drag button to start point, long-press. | SPEED: slider 30-130 percent. | VOICE: only Sevinch. More voices - install RHVoice. | SCREEN OFF: reading continues.</string>
+    <string name="voice_islom">Islom (male, most natural)</string>
+    <string name="edge_tts_enabled">Online voice (Edge TTS)</string>
+    <string name="edge_voice_madina">Madina (female)</string>
+    <string name="edge_voice_sardor">Sardor (male)</string>
+    <string name="tts_lang_label">Reading language</string>
+    <string name="tts_lang_auto">Auto (detect from text)</string>
+    <string name="tts_lang_uz">Uzbek</string>
+    <string name="tts_lang_ru">Russian</string>
+    <string name="tts_lang_en">English</string>
+    <string name="toast_btn_pos">From button position (%1$dpx)</string>
+    <string name="toast_screen_capture">Capturing screen...</string>
+    <string name="toast_text_not_found">No text found</string>
+    <string name="toast_preparing">Preparing...</string>
+    <string name="toast_no_internet">Internet required</string>
+    <string name="overlay_close">Close</string>
+    <string name="overlay_copy">Copy</string>
+    <string name="overlay_read">Read</string>
+    <string name="overlay_zoom_mode">🔍 Zoom mode</string>
+    <string name="overlay_select_mode">✏️ Select mode</string>
+    <string name="toast_select_on">Text selection enabled</string>
+    <string name="toast_zoom_on">Zoom/scroll mode</string>
+    <string name="toast_ocr_wait">Preparing text, please wait...</string>
+    <string name="toast_select_first">Please select text first</string>
+    <string name="toast_read_start">Reading started</string>
+    <string name="toast_internet_required">Internet required</string>
+    <string name="toast_tts_stopped">Stopped</string>
+    <string name="toast_floating_started">Floating button enabled</string>
+    <string name="toast_permission_denied">Permission denied</string>
+    <string name="toast_overlay_permission">Please grant overlay permission</string>
+    <string name="toast_online_disabled">Online voice disabled</string>
+    <string name="toast_stopped_short">Stopped</string>
+    <string name="update_title">New version available!</string>
+    <string name="update_message">Version %1$s is available. Do you want to update now?</string>
+    <string name="update_now">Update now</string>
+    <string name="update_later">Later</string>
+    <string name="update_downloading">Downloading update...</string>
+    <string name="update_allow_install">Please allow installing apps from this source</string>
+    <string name="ui_lang_label">Interface language</string>
+    <string name="ui_lang_uz">O\'zbekcha</string>
+    <string name="ui_lang_ru">Русский</string>
+    <string name="ui_lang_en">English</string>
+    <string name="btn_test_tts_uz">🔊 Test: Assalomu alaykum</string>
+    <string name="btn_test_tts_ru">🔊 Тест: Привет мир</string>
+    <string name="btn_test_tts_en">🔊 Test: Hello world</string>
+</resources>

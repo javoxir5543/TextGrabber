@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 12+ (API 31+) uchun zaxira (backup) qoidalari.
+     Tessdata fayllari (7.6 MB) va kesh zaxiralanmaydi. -->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="file" path="tessdata/" />
+        <exclude domain="cache" path="." />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="file" path="tessdata/" />
+        <exclude domain="cache" path="." />
+    </device-transfer>
+</data-extraction-rules>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TextGrabber</string>
+    <string name="btn_start_floating">Suzuvchi tugmani yoqish</string>
+    <string name="btn_stop_floating">O\'chirish (Off)</string>
+    <string name="btn_clear">Hammasini tozalash</string>
+    <string name="btn_copy">Nusxalash</string>
+    <string name="btn_open_text">Matnni ochish</string>
+    <string name="btn_copy_all">Hammasini nusxalash</string>
+    <string name="chk_notification">Natijani bildirishnomada ko\'rsatish</string>
+    <string name="toast_copied">Matn nusxalandi!</string>
+    <string name="toast_stopped">Suzuvchi tugma o\'chirildi</string>
+    <string name="lang_auto">Tizim tili (Avto)</string>
+    <string name="lang_uz">O\'zbekcha</string>
+    <string name="lang_ru">Русский</string>
+    <string name="lang_en">English</string>
+    <string name="menu_lang">Til</string>
+    <string name="menu_color">Matn rangi</string>
+    <string name="float_btn_enabled">Suzuvchi tugma yoqildi!</string>
+    <string name="language">Til</string>
+    <string name="text_color">Matn rangi</string>
+    <string name="color_default">Standart</string>
+    <string name="color_green">Yashil</string>
+    <string name="color_blue">Ko\'k</string>
+    <string name="color_red">Qizil</string>
+    <string name="select_on">Tanlash: YOQILGAN (barmoq bilan torting)</string>
+    <string name="select_off">Tanlash: O\'CHIQ</string>
+    <string name="toast_no_text">Matn topilmadi. Avval rasm oling.</string>
+    <string name="toast_cleared">Tozalandi</string>
+    <string name="toast_ocr_working">Matn o\'qilmoqda\u2026</string>
+    <string name="toast_ocr_done">Matn aniqlandi. \"Matnni ochish\" tugmasini bosing.</string>
+    <string name="toast_ocr_words">OCR: %1$d ta so\'z topildi</string>
+    <string name="toast_error">Xato: %1$s</string>
+    <string name="toast_selected_copied">Nusxalandi: %1$s</string>
+    <string name="notif_channel_name">Ekran matnini suratga olish</string>
+    <string name="notif_channel_desc">Suzuvchi tugma faol bo\'lganda kerak</string>
+    <string name="notif_stop_action">O\'chirish</string>
+    <string name="accessibility_desc">TextGrabber boshqa ilovalardagi matnlarni ovozli o\'qish uchun ekranni o\'qiydi.</string>
+    <string name="tts_uz_missing">O\'zbek tili uchun RHVoice o\'rnating</string>
+    <string name="tts_reading_started">Ovozli o\'qish boshlandi</string>
+    <string name="tts_no_text">Ekranda matn topilmadi</string>
+    <string name="tts_stopped">Ovozli o\'qish to\'xtatildi</string>
+    <string name="accessibility_not_enabled">Avval Qulaylik xizmatini yoqing: Sozlamalar - Qulaylik - TextGrabber</string>
+
+    <string name="rate_label">Tezlik: %1$d%%</string>
+    <string name="btn_read_from_selection">🔊 Belgilangan joydan o\'qish</string>
+    <string name="btn_test_tts">🔊 Test: Assalomu alaykum</string>
+    <string name="voice_dialog_title">Ovozni tanlash</string>
+    <string name="voice_sevinch">Sevinch (ayol, kichik)</string>
+    <string name="voice_dilnavoz">Dilnavoz (ayol, katta)</string>
+    <string name="voice_selected">Ovoz: %1$s (qayta ishga tushiring)</string>
+
+    <string name="btn_enable_accessibility">Qulaylik xizmatini yoqish (ovozli o\'qish)</string>
+    <string name="tts_hint_button">Tugmani kerakli joyga torting, keyin o\'sha joydan o\'qish uchun uzoq bosing</string>
+
+    <string name="menu_help">Yordam</string>
+    <string name="help_title">TextGrabber qanday ishlatiladi</string>
+        
+    
+    
+    <string name="help_text">MATNNI SURATGA OLISH: 1) Suzuvchi tugmani yoqish va ruxsat bering. 2) Istalgan ilova, tugmani bosing. 3) OCR avtomatik, Matnni ochish bosing. | OVOZLI OQISH: 1) Qulaylik xizmatini yoqish. 2) Suzuvchi tugmani uzoq bosing - butun ekran. | BELGILANGAN JOYDAN: - Tanlangan matn: matnni uzoq bosib tanlang, keyin tugmani. - Tugma joyidan: tugmani matn boshi joyiga torting, uzoq bosing. | TEZLIK: slider 30-130 foiz. | OVOZ: faqat Sevinch. RHVoice ornating. | EKRAN OCHGANDA: davom etadi.</string>
+    <string name="voice_islom">Islom (erkak, eng tabiiy)</string>
+    <string name="edge_tts_enabled">Onlayn ovoz (Edge TTS)</string>
+    <string name="edge_voice_madina">Madina (ayol)</string>
+    <string name="edge_voice_sardor">Sardor (erkak)</string>
+    <string name="tts_lang_label">O\'qish tili</string>
+    <string name="tts_lang_auto">Avto (matndan aniqlash)</string>
+    <string name="tts_lang_uz">O\'zbekcha</string>
+    <string name="tts_lang_ru">Ruscha</string>
+    <string name="tts_lang_en">Inglizcha</string>
+    <string name="toast_btn_pos">Tugma joyidan (%1$dpx)</string>
+    <string name="toast_screen_capture">Ekran olindi...</string>
+    <string name="toast_text_not_found">Matn topilmadi</string>
+    <string name="toast_preparing">Tayyorlanmoqda...</string>
+    <string name="toast_no_internet">Internet kerak</string>
+    <string name="overlay_close">Yopish</string>
+    <string name="overlay_copy">Nusxalash</string>
+    <string name="overlay_read">O\'qish</string>
+    <string name="overlay_zoom_mode">🔍 Zoom rejimi</string>
+    <string name="overlay_select_mode">✏️ Belgilash</string>
+    <string name="toast_select_on">Matn belgilash yoqildi</string>
+    <string name="toast_zoom_on">Zoom/scroll rejimi</string>
+    <string name="toast_ocr_wait">Matn tayyorlanmoqda, kuting...</string>
+    <string name="toast_select_first">Iltimos, avval matnni belgilang</string>
+    <string name="toast_read_start">O\'qish boshlandi</string>
+    <string name="toast_internet_required">Internet kerak</string>
+    <string name="toast_tts_stopped">To\'xtatildi</string>
+    <string name="toast_floating_started">Suzuvchi tugma yoqildi</string>
+    <string name="toast_permission_denied">Ruxsat berilmadi</string>
+    <string name="toast_overlay_permission">Ekran ustida chizish ruxsatini bering</string>
+    <string name="toast_online_disabled">Onlayn ovoz o\'chirilgan</string>
+    <string name="toast_stopped_short">To\'xtatildi</string>
+    <string name="update_title">Yangi versiya mavjud!</string>
+    <string name="update_message">%1$s versiyasi chiqdi. Hozir yangilaysizmi?</string>
+    <string name="update_now">Ha, yangilash</string>
+    <string name="update_later">Keyinroq</string>
+    <string name="update_downloading">Yangilanish yuklab olinmoqda...</string>
+    <string name="update_allow_install">Iltimos, noma\'lum ilovalarni o\'rnatishga ruxsat bering</string>
+    <string name="ui_lang_label">Interfeys tili</string>
+    <string name="ui_lang_uz">O\'zbekcha</string>
+    <string name="ui_lang_ru">Русский</string>
+    <string name="ui_lang_en">English</string>
+    <string name="btn_test_tts_uz">🔊 Test: Assalomu alaykum</string>
+    <string name="btn_test_tts_ru">🔊 Тест: Привет мир</string>
+    <string name="btn_test_tts_en">🔊 Test: Hello world</string>
+</resources>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000000">
+
+    <!-- Tepa panel -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#CC222222"
+        android:padding="6dp"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/btnCloseOverlay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Yopish"
+            android:textSize="13sp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#D32F2F" />
+
+        <Button
+            android:id="@+id/btnToggleMode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:layout_marginStart="4dp"
+            android:text="🔍 Zoom rejimi"
+            android:textSize="13sp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#FF9800" />
+
+        <Button
+            android:id="@+id/btnCopyOverlay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:text="Nusxalash"
+            android:textSize="13sp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#1976D2" />
+
+        <Button
+            android:id="@+id/btnReadOverlay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:text="O'qish"
+            android:textSize="13sp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#388E3C" />
+    </LinearLayout>
+
+    <!-- Rasm va matn belgilash qismi -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/photoViewOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.textgrabber.app.TextSelectView
+            android:id="@+id/selectViewOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+</LinearLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 11 va undan past (API &lt; 31) uchun zaxira qoidalari. -->
+<full-backup-content>
+    <exclude domain="file" path="tessdata/" />
+    <exclude domain="cache" path="." />
+</full-backup-content>

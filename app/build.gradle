@@ -1,0 +1,95 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.textgrabber.app'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.textgrabber.app"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        ndk {
+            abiFilters 'arm64-v8a'
+        }
+
+        resourceConfigurations += ['en', 'uz', 'ru']
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
+            debuggable true
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    packaging {
+        resources {
+            excludes += [
+                    'META-INF/*.version',
+                    'META-INF/*.kotlin_module',
+                    'META-INF/DEPENDENCIES',
+                    'META-INF/LICENSE',
+                    'META-INF/LICENSE.txt',
+                    'META-INF/NOTICE',
+                    'META-INF/NOTICE.txt',
+                    'META-INF/AL2.0',
+                    'META-INF/LGPL2.1',
+                    'META-INF/INDEX.LIST',
+                    'META-INF/com/android/build/gradle/aar-metadata.properties',
+                    'DebugProbesKt.bin',
+                    'kotlin-tooling-metadata.json',
+                    '**/*.proto',
+                    '**/*.bin',
+            ]
+        }
+        jniLibs {
+            keepDebugSymbols += []
+            useLegacyPackaging = false
+        }
+    }
+
+    buildFeatures {
+        buildConfig false
+        resValues false
+        shaders false
+    }
+
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation 'cz.adaptech.tesseract4android:tesseract4android:4.7.0'
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:19.0.1'
+}
