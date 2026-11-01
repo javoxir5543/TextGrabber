@@ -4,6 +4,16 @@ plugins {
 }
 
 android {
+
+    signingConfigs {
+        release {
+            storeFile file("../textgrabber-release.jks")
+            storePassword "javoxir5543"
+            keyAlias "textgrabber"
+            keyPassword "javoxir5543"
+        }
+    }
+
     namespace 'com.textgrabber.app'
     compileSdk 34
 
@@ -34,7 +44,7 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
                     'proguard-rules.pro'
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
     }
 

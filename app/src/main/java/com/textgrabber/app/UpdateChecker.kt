@@ -20,7 +20,7 @@ import java.io.FileOutputStream
 
 object UpdateChecker {
     // O'ZGARTIRING: GitHub usernameingizni yozing
-    private const val GITHUB_USER = "YOUR_GITHUB_USERNAME"
+    private const val GITHUB_USER = "javoxir5543"
     private const val GITHUB_REPO = "TextGrabber"
     private const val API_URL = "https://api.github.com/repos/$GITHUB_USER/$GITHUB_REPO/releases/latest"
 
