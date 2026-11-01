@@ -19,6 +19,7 @@ class TtsManager(private val context: Context) {
     private var wifiLock: WifiManager.WifiLock? = null
     
     var onTextUpdate: ((String) -> Unit)? = null
+    var onSpeechFinished: (() -> Unit)? = null
 
     @Volatile private var ttsManagerGeneration = 0
 
@@ -190,6 +191,8 @@ class TtsManager(private val context: Context) {
         ttsManagerGeneration++
         edgeClient?.stop()
         releaseLocks()
+        // onSpeechFinished bu yerda chaqirilmaydi! 
+        // Aks holda "O'qish" bosilganda tugma darhol "O'qish" ga qaytib qoladi.
     }
 
     fun shutdown() {

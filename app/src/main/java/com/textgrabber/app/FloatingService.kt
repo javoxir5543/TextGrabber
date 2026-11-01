@@ -50,6 +50,12 @@ class FloatingService : Service() {
         super.onCreate()
         windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         tts = TtsManager(this)
+        
+        // O'qish tugaganda yoki to'xtaganda ikonkani fotoaparatga qaytarish
+        tts?.onSpeechFinished = {
+            main.post { setButtonImage(android.R.drawable.ic_menu_camera) }
+        }
+        
         createFloatingButton()
         startForegroundServiceWithNotification()
     }
@@ -239,24 +245,31 @@ class FloatingService : Service() {
             } catch (e: Exception) {}
             return
         }
+        
+        // Agar hozir o'qiyotgan bo'lsa, to'xtatamiz
         if (tts?.isSpeaking() == true) {
             tts?.stop()
-            Toast.makeText(this, getString(R.string.toast_tts_stopped), Toast.LENGTH_SHORT).show()
+            setButtonImage(android.R.drawable.ic_menu_camera) // Ikonkani Kamera ga qaytarish
+            Toast.makeText(this, getString(R.string.tts_stopped), Toast.LENGTH_SHORT).show()
             return
         }
+        
+        // Yangi o'qishni boshlaymiz
+        setButtonImage(android.R.drawable.ic_media_pause) // Ikonkani Pauza ga o'zgartirish
+        
         val selected = try { svc.getSelectedText() } catch (e: Exception) { "" }
         val buttonY = getButtonY()
-        Toast.makeText(this, getString(R.string.toast_read_start), Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.tts_reading_started), Toast.LENGTH_SHORT).show()
+        
         Thread {
             val finalList: List<String> = if (selected.isNotBlank()) listOf(selected)
             else svc.getAllScreenTextFromYWithScroll(if (buttonY > 0) buttonY else 0)
-            Log.i(TAG, "read: collected ${finalList.size} blocks")
             main.post {
                 if (finalList.isEmpty()) {
                     Toast.makeText(this, getString(R.string.tts_no_text), Toast.LENGTH_SHORT).show()
+                    setButtonImage(android.R.drawable.ic_menu_camera) // Matn topilmasa, kamera ga qaytish
                     return@post
                 }
-                tts?.stop()
                 tts?.speakList(finalList)
             }
         }.start()
@@ -356,8 +369,18 @@ class FloatingService : Service() {
         Log.i(TAG, "showOverlay called")
         try {
             closeOverlay()
+            // Ilova tilini to'g'ridan-to'g'ri AppCompat'dan olamiz (eng ishonchli usul)
+            val appLocale = androidx.appcompat.app.AppCompatDelegate.getApplicationLocales()[0]?.language
+            val prefs = getSharedPreferences("settings", MODE_PRIVATE)
+            val lang = appLocale ?: prefs.getString("ui_language", "uz") ?: "uz"
+            val locale = java.util.Locale(lang)
+            java.util.Locale.setDefault(locale)
+            val config = android.content.res.Configuration(resources.configuration)
+            config.setLocale(locale)
+            val localizedContext = createConfigurationContext(config)
+
             val themed = androidx.appcompat.view.ContextThemeWrapper(
-                this, androidx.appcompat.R.style.Theme_AppCompat_DayNight_NoActionBar)
+                localizedContext, androidx.appcompat.R.style.Theme_AppCompat_DayNight_NoActionBar)
             val root = LayoutInflater.from(themed).inflate(R.layout.overlay_capture, null)
 
             val photoView = root.findViewById<com.github.chrisbanes.photoview.PhotoView>(R.id.photoViewOverlay)
@@ -367,8 +390,27 @@ class FloatingService : Service() {
             val btnCopy = root.findViewById<android.widget.Button>(R.id.btnCopyOverlay)
             val btnRead = root.findViewById<android.widget.Button>(R.id.btnReadOverlay)
 
+            // Tarjimalarni o'rnatish
+            btnClose.text = localizedContext.getString(R.string.overlay_close)
+            btnToggleMode.text = localizedContext.getString(R.string.overlay_zoom_mode)
+            btnCopy.text = localizedContext.getString(R.string.overlay_copy)
+            btnRead.text = localizedContext.getString(R.string.overlay_read)
+
             photoView.setImageBitmap(bitmap)
-                        var ocrDone = false
+            selectView.selectMode = false
+            var ocrDone = false
+            var isReading = false
+
+            // O'qish tugaganda yoki stop bosilganda tugmani asl holatiga qaytarish
+            tts?.onSpeechFinished = {
+                main.post {
+                    if (overlayView === root) {
+                        isReading = false
+                        btnRead.text = localizedContext.getString(R.string.overlay_read)
+                        btnRead.setBackgroundColor(0xFF388E3C.toInt()) // Yashil
+                    }
+                }
+            }
 
             val rec = getRecognizer()
             Thread {
@@ -392,50 +434,58 @@ class FloatingService : Service() {
                 return if (startIdx >= 0) selectView.getTextFrom(startIdx) else selectView.getTextFrom(0)
             }
 
-            btnClose.setOnClickListener { closeOverlay() }
-
-            // Standart: Zoom rejimi (selectMode = false)
-            selectView.selectMode = false
-            btnToggleMode.text = "🔍 Zoom rejimi"
+            btnClose.setOnClickListener { 
+                tts?.stop() // Har qanday holatda ham ovozni to'xtatamiz
+                closeOverlay() 
+            }
 
             btnToggleMode.setOnClickListener {
                 val isSelect = !selectView.selectMode
                 selectView.selectMode = isSelect
-                btnToggleMode.text = getString(if (isSelect) R.string.overlay_select_mode else R.string.overlay_zoom_mode)
+                btnToggleMode.text = localizedContext.getString(if (isSelect) R.string.overlay_select_mode else R.string.overlay_zoom_mode)
                 btnToggleMode.setBackgroundColor(if (isSelect) 0xFF4CAF50.toInt() else 0xFFFF9800.toInt())
-                Toast.makeText(this, getString(if (isSelect) R.string.toast_select_on else R.string.toast_zoom_on), Toast.LENGTH_SHORT).show()
             }
 
             btnCopy.setOnClickListener {
                 if (!ocrDone) {
-                    Toast.makeText(this, getString(R.string.toast_ocr_wait), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, localizedContext.getString(R.string.toast_ocr_wait), Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
-                // FAQAT belgilangan so'zlarni olamiz
                 val selected = selectView.getSelectedTextOnly()
                 if (selected.isNotBlank()) {
                     val cb = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                     cb.setPrimaryClip(ClipData.newPlainText("TextGrabber", selected))
-                    Toast.makeText(this, getString(R.string.toast_copied), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, localizedContext.getString(R.string.toast_copied), Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this, getString(R.string.toast_select_first), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, localizedContext.getString(R.string.toast_select_first), Toast.LENGTH_SHORT).show()
                 }
             }
 
             btnRead.setOnClickListener {
                 if (!ocrDone) {
-                    Toast.makeText(this, getString(R.string.toast_ocr_wait), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, localizedContext.getString(R.string.toast_ocr_wait), Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
-                // Belgilangan bo'lsa — faqat belgilangan, aks holda — butun matn
-                val selectedOnly = selectView.getSelectedTextOnly()
-                val textToRead = if (selectedOnly.isNotBlank()) selectedOnly else selectView.getTextFrom(0)
-                Log.i(TAG, "READ pressed: selected=${selectedOnly.length}, full=${textToRead.length}")
-                if (textToRead.isNotBlank()) {
-                    tts?.stop()
-                    tts?.speak(textToRead)
+                
+                if (isReading) {
+                    // Stop bosildi: ovozni to'xtatamiz va holatni qaytaramiz
+                    tts?.stop() 
+                    isReading = false
+                    btnRead.text = localizedContext.getString(R.string.overlay_read)
+                    btnRead.setBackgroundColor(0xFF388E3C.toInt()) // Yashil
                 } else {
-                    Toast.makeText(this, getString(R.string.toast_no_text), Toast.LENGTH_SHORT).show()
+                    // O'qish bosildi
+                    val selectedOnly = selectView.getSelectedTextOnly()
+                    val textToRead = if (selectedOnly.isNotBlank()) selectedOnly else selectView.getTextFrom(0)
+                    
+                    if (textToRead.isNotBlank()) {
+                        isReading = true
+                        btnRead.text = localizedContext.getString(R.string.overlay_stop)
+                        btnRead.setBackgroundColor(0xFFD32F2F.toInt()) // Qizil
+                        tts?.speak(textToRead)
+                    } else {
+                        Toast.makeText(this, localizedContext.getString(R.string.toast_no_text), Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
 
@@ -452,4 +502,25 @@ class FloatingService : Service() {
             Log.e(TAG, "Overlay error", e)
         }
     }
+
+    private fun setButtonImage(resId: Int) {
+        main.post {
+            try {
+                val img = findImageView(floatingView)
+                img?.setImageResource(resId)
+            } catch (e: Exception) { Log.e(TAG, "setButtonImage error", e) }
+        }
+    }
+
+    private fun findImageView(view: android.view.View): android.widget.ImageView? {
+        if (view is android.widget.ImageView) return view
+        if (view is android.view.ViewGroup) {
+            for (i in 0 until view.childCount) {
+                val img = findImageView(view.getChildAt(i))
+                if (img != null) return img
+            }
+        }
+        return null
+    }
+
 }

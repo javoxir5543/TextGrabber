@@ -79,9 +79,8 @@ class EdgeTtsClient(private val context: Context) {
     private fun makeSsml(voice: String, ratePercent: Int, text: String): String {
         val rate = if (ratePercent == 0) "+0%" else (if (ratePercent > 0) "+${ratePercent}%" else "${ratePercent}%")
         val escaped = escapeXml(text)
-        // Ovoz nomidan tilni aniqlaymiz (masalan: uz-UZ-MadinaNeural -> uz-UZ)
-        val lang = voice.split("-").take(2).joinToString("-").ifBlank { "en-US" }
-        Log.d("EdgeTts", "SSML_DEBUG_TEXT: ${escaped.take(60)}")
+        val lang = getLangFromVoice(voice)
+        
         return "<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='$lang'>" +
                 "<voice name='$voice'>" +
                 "<prosody pitch='+0Hz' rate='$rate' volume='+0%'>" +
@@ -251,4 +250,14 @@ class EdgeTtsClient(private val context: Context) {
     }
     private fun escapeXml(s: String): String = s
         .replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+    private fun getLangFromVoice(voice: String): String {
+        return when {
+            voice.startsWith("uz") -> "uz-UZ"
+            voice.startsWith("ru") -> "ru-RU"
+            voice.startsWith("en") -> "en-US"
+            else -> "en-US"
+        }
+    }
+
 }

@@ -103,4 +103,5 @@
     <string name="btn_test_tts_uz">🔊 Тест: Ассалому алайкум</string>
     <string name="btn_test_tts_ru">🔊 Тест: Привет мир</string>
     <string name="btn_test_tts_en">🔊 Test: Hello world</string>
+    <string name="overlay_stop">Стоп</string>
 </resources>

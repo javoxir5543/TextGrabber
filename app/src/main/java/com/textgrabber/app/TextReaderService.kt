@@ -78,12 +78,39 @@ class TextReaderService : AccessibilityService() {
         }
         if (isDesc && node.isClickable && text.length < 25) return false
 
-        val lower = text.lowercase()
+        val lower = text.lowercase().trim()
+        
+        // 1. URL, domenlar va yashirin yozuvlarni tashlash
         if (lower.startsWith("http") || lower.contains("://") || text.length <= 3) return false
+        if (Regex("""^[a-zA-Z0-9.-]+\.(uz|ru|com|org|net|io|info|gov|edu)$""", RegexOption.IGNORE_CASE).matches(lower)) return false
+        if (Regex("""^\+\d{1,2}$""").matches(lower)) return false // "+2", "+15" kabi
+        
+        // 2. "Kun.uz +2" kabi qo'shilib ketgan matnlarni tashlash
+        if (Regex("""^[a-zA-Z0-9.-]+\.(uz|ru|com)\s*\+\d+$""", RegexOption.IGNORE_CASE).matches(lower)) return false
+        
+        // 3. Reklama va tavsiya kartochkalarini tashlash (masalan: "2026 yil birinchi...")
+        if (Regex("""^\d{4}\s""").containsMatchIn(text) && text.length < 100) return false
+        
         if (text.count { it.isLetter() } < 2) return false
 
-        val uiExact = setOf("back","forward","new tab","tabs","menu","ask a question","share","copy","назад","вперед","меню","копировать","orqaga","menyu","ulashish")
+        // 3. Tugmalar va menyular (kengaytirilgan)
+        val uiExact = setOf(
+            "back", "forward", "new tab", "tabs", "menu", "ask a question", "share", "copy", "search", "images", "videos", "news", "maps",
+            "назад", "вперед", "новая вкладка", "вкладки", "меню", "поделиться", "копировать", "поиск", "картинки", "видео", "новости", "карты",
+            "orqaga", "oldinga", "yangi oyna", "oynalar", "menyu", "ulashish", "nusxalash", "qidirish", "rasmlar", "videolar", "yangiliklar", "xaritalar"
+        )
         if (lower in uiExact) return false
+
+        // 4. Reklama/Tavsiya bloklarini chetlab o'tish
+        var p = node.parent
+        var depth = 0
+        while (p != null && depth < 3) {
+            if (p.isClickable && p.className?.contains("ViewGroup") == true && text.length < 60) {
+                return false // Reklama kartasi
+            }
+            p = p.parent
+            depth++
+        }
 
         return true
     }

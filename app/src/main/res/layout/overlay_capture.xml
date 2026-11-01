@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="#CC222222"
-        android:padding="6dp"
+        android:padding="4dp"
         android:gravity="center_vertical">
 
         <Button
@@ -19,8 +19,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Yopish"
-            android:textSize="13sp"
+            android:text="@string/overlay_close"
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:padding="0dp"
             android:textColor="#FFFFFF"
             android:backgroundTint="#D32F2F" />
 
@@ -30,8 +32,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:layout_marginStart="4dp"
-            android:text="🔍 Zoom rejimi"
-            android:textSize="13sp"
+            android:text="@string/overlay_zoom_mode"
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:padding="0dp"
             android:textColor="#FFFFFF"
             android:backgroundTint="#FF9800" />
 
@@ -39,10 +43,12 @@
             android:id="@+id/btnCopyOverlay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:layout_marginStart="4dp"
-            android:text="Nusxalash"
-            android:textSize="13sp"
+            android:text="@string/overlay_copy"
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:padding="0dp"
             android:textColor="#FFFFFF"
             android:backgroundTint="#1976D2" />
 
@@ -52,8 +58,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="4dp"
-            android:text="O'qish"
-            android:textSize="13sp"
+            android:text="@string/overlay_read"
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:padding="0dp"
             android:textColor="#FFFFFF"
             android:backgroundTint="#388E3C" />
     </LinearLayout>

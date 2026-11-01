@@ -21,18 +21,26 @@ object TextSanitizer {
                     cp == '/'.code || cp == '('.code || cp == ')'.code ||
                     cp == '['.code || cp == ']'.code || cp == '{'.code || cp == '}'.code ||
                     cp == '"'.code || cp == '\''.code || cp == '«'.code || cp == '»'.code ||
-                    cp == 0x02BB || cp == 0x02BC || cp == 0x2018 || cp == 0x2019 ||
                     cp == '\u2018'.code || cp == '\u2019'.code ||
                     cp == '\u201C'.code || cp == '\u201D'.code ||
                     cp == '\u2014'.code || cp == '\u2013'.code ||
                     cp == '%'.code || cp == '+'.code || cp == '='.code ||
                     cp == '&'.code || cp == '@'.code || cp == '#'.code || cp == '*'.code -> true
+                    cp == 0x02BB || cp == 0x02BC || cp == 0x2018 || cp == 0x2019 -> true
                     else -> false
                 }
                 if (keep) sb.appendCodePoint(cp)
                 i += cc
             }
-            sb.toString().replace(Regex("\\s+"), " ").trim()
+            var result = sb.toString().replace(Regex("\\s+"), " ").trim()
+            
+            // Sayt manzillari (Kun.uz, google.com) va +2 teglarini olib tashlash
+            result = result.replace(Regex("""\b[a-z0-9.-]+\.(com|uz|ru|org|net|io|gov|edu)\b""", RegexOption.IGNORE_CASE), "")
+            result = result.replace(Regex("""\+\d{1,2}\b"""), "")
+            
+            // Ortiqcha bo'shliqlarni tozalash
+            result = result.replace(Regex("\\s+"), " ").trim()
+            result
         } catch (e: Throwable) {
             android.util.Log.e("TextSanitizer", "sanitize error", e)
             text
@@ -129,7 +137,6 @@ object TextSanitizer {
         val map = when (lang) { "ru" -> ruMap; "en" -> enMap; else -> uzMap }
         val suffix = when (lang) { "ru" -> "-й"; "en" -> "th"; else -> "-inchi" }
 
-        // 1. "Nword" (bo'shliqsiz) — whitelist so'zlar bilan
         val whitelist = "sinf|variant|bob|qism|bet|sahifa|dars|mavzu|misol|masala|sinif|" +
                         "класс|вариант|глава|часть|страница|урок|пример|" +
                         "class|grade|chapter|part|page|lesson|example"
@@ -140,15 +147,26 @@ object TextSanitizer {
             "$ord $word"
         }
 
-        // 2. "N-x" yoki "N x" (separator bilan) — umumiy
-        result = Regex("""\b(\d{1,3})[-.\s]+(\p{L})""").replace(result) { m ->
+        // Faqat mustaqil 1-3 xonali sonlarni tekshiramiz (boshqa sonlarning bo'lagi emasligiga ishonch hosil qilamiz)
+        result = Regex("""(?<!\d\s)\b(\d{1,3})[-.\s]+(\p{L}+)\b""", RegexOption.IGNORE_CASE).replace(result) { m ->
             val num = m.groupValues[1]
-            val letter = m.groupValues[2]
-            val ord = map[num] ?: "$num$suffix"
-            "$ord $letter"
+            val word = m.groupValues[2]
+            val cleanWord = word.lowercase().replace(Regex("[^a-zа-я]"), "")
+            
+            // Valyuta va o'lchov birliklarining ertaga qarab tekshirish (сум, сумов, рублей, долларов)
+            val skipStems = listOf(
+                "so", "som", "sum", "сум", "сўм", "руб", "доллар", "долл", "dollar", "dollars", "usd", "eur",
+                "евро", "euro", "тенге", "gb", "гб", "mb", "мб", "mp", "мп", "mah", "мач", "hz", "гц"
+            )
+            
+            if (skipStems.any { cleanWord.startsWith(it) }) {
+                m.value // Valyuta bo'lsa, hech narsa qo'shmaymiz
+            } else {
+                val ord = map[num] ?: "$num$suffix"
+                "$ord $word"
+            }
         }
 
-        // 3. Ro'yxat markerlari "1. " satr boshida yoki gapdan keyin
         result = Regex("""(?<=^|[.!?]\s)(\d{1,3})[.)]\s""").replace(result) { m ->
             val num = m.groupValues[1]
             val ord = map[num] ?: "$num$suffix"
@@ -161,13 +179,16 @@ object TextSanitizer {
 
     /** Raqamlarni so'zga aylantirish: 0 -> nol, 5 -> besh, 100 -> bir yuz */
     fun convertDigits(input: String, lang: String): String {
-        return Regex("""\b\d+\b""").replace(input) { m ->
+        // 1. Raqamlar orasidagi bo'shliqlarni olib tashlash (16 500 000 -> 16500000)
+        val normalized = input.replace(Regex("(?<=\\d)\\s+(?=\\d)"), "")
+        
+        return Regex("""\b\d+\b""").replace(normalized) { m ->
             val numStr = m.value
             val num = numStr.toLongOrNull() ?: return@replace numStr
             if (numStr.length > 1 && numStr.startsWith("0")) {
                 // Boshidagi nollarni saqlash: "007" -> "nol nol yetti"
                 numStr.map { d -> numToWord(d.digitToInt().toLong(), lang) }.joinToString(" ")
-            } else if (numStr.length > 6) {
+            } else if (numStr.length > 9) {
                 // Uzun raqam (telefon, ID) -> raqamma-raqam
                 numStr.map { d -> numToWord(d.digitToInt().toLong(), lang) }.joinToString(" ")
             } else {

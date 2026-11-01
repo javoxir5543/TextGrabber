@@ -49,7 +49,11 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title = getString(R.string.app_name)
+        // Ilova nomi va versiyasini avtomatik o'qib, sarlavhaga yozamiz
+        val versionName = try {
+            packageManager.getPackageInfo(packageName, 0).versionName
+        } catch (e: Exception) { "1.0" }
+        supportActionBar?.title = "${getString(R.string.app_name)} v$versionName" 
 
         prefs = getSharedPreferences("settings", Context.MODE_PRIVATE)
         ttsManager = TtsManager(this)
@@ -73,6 +77,8 @@ class MainActivity : AppCompatActivity() {
         // Joriy tilni aniqlash (AppCompat orqali yoki tizim tilidan)
         val activeLang = AppCompatDelegate.getApplicationLocales()[0]?.language 
             ?: resources.configuration.locales[0].language
+        // Tilni xotiraga saqlaymiz (FloatingService o'qishi uchun)
+        prefs.edit().putString("ui_language", activeLang).apply()
         
         // 1.1 Spinner'ni to'g'ri indeksga qo'yish (LISTENER'DAN OLDIN!)
         val currentIndex = uiLangCodes.indexOf(activeLang).coerceAtLeast(0)
@@ -130,8 +136,16 @@ class MainActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: android.view.View?, position: Int, id: Long) {
                 val selectedLang = langCodes[position]
                 prefs.edit().putString("tts_language", selectedLang).apply()
-                // Test tugmasining yozuvini TTS tiliga moslab yangilaymiz
+                
+                // Test tugmasining yozuvini yangilash
                 updateTestButtonLabel(selectedLang)
+                
+                // Agar "uz" yoki "auto" bo'lsa Madina/Sardor ko'rinadi, aks holda yashiriladi
+                if (selectedLang == "uz" || selectedLang == "auto") {
+                    findViewById<RadioGroup>(R.id.edgeVoiceGroup).visibility = android.view.View.VISIBLE
+                } else {
+                    findViewById<RadioGroup>(R.id.edgeVoiceGroup).visibility = android.view.View.GONE
+                }
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
@@ -153,6 +167,11 @@ class MainActivity : AppCompatActivity() {
 
         val savedVoice = prefs.getString("edge_voice", "uz-UZ-MadinaNeural") ?: "uz-UZ-MadinaNeural"
         if (savedVoice == "uz-UZ-SardorNeural") radioSardor.isChecked = true else radioMadina.isChecked = true
+        
+        // Dastlabki holat
+        if (savedLang != "uz" && savedLang != "auto") {
+            edgeVoiceGroup.visibility = android.view.View.GONE
+        }
         edgeVoiceGroup.setOnCheckedChangeListener { _, checkedId ->
             val v = if (checkedId == R.id.radioSardor) "uz-UZ-SardorNeural" else "uz-UZ-MadinaNeural"
             prefs.edit().putString("edge_voice", v).apply()
