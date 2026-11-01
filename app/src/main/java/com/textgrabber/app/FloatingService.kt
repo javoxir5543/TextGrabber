@@ -489,6 +489,18 @@ class FloatingService : Service() {
                 }
             }
 
+            // Orqaga (Back) tugmasi bosilganda oynani yopish logikasi
+            root.isFocusableInTouchMode = true
+            root.requestFocus()
+            root.setOnKeyListener { _, keyCode, event ->
+                if (keyCode == android.view.KeyEvent.KEYCODE_BACK && event.action == android.view.KeyEvent.ACTION_UP) {
+                    closeOverlay()
+                    true
+                } else {
+                    false
+                }
+            }
+
             val lp = WindowManager.LayoutParams(
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT,
