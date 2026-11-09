@@ -113,12 +113,26 @@ class TextSelectView @JvmOverloads constructor(
     private fun hit(x: Float, y: Float): Int {
         val p = floatArrayOf(x, y)
         inverseMatrix().mapPoints(p)
+        var bestIndex = -1
+        var minDistanceSq = Float.MAX_VALUE
+
         for (i in words.indices) {
             scratch.set(words[i].box)
-            scratch.inset(-10f, -10f)
-            if (scratch.contains(p[0], p[1])) return i
+            // 10f dan 2f ga tushirildi (kichik tugmalarni aniq belgilash uchun)
+            scratch.inset(-2f, -2f) 
+
+            if (scratch.contains(p[0], p[1])) {
+                // Agar so'zlar ustma-ust tushsa, barmoq eng yaqin bo'lganini tanlaymiz
+                val cx = scratch.centerX()
+                val cy = scratch.centerY()
+                val distSq = (p[0] - cx) * (p[0] - cx) + (p[1] - cy) * (p[1] - cy)
+                if (distSq < minDistanceSq) {
+                    minDistanceSq = distSq
+                    bestIndex = i
+                }
+            }
         }
-        return -1
+        return bestIndex
     }
 
     override fun onTouchEvent(e: MotionEvent): Boolean {
